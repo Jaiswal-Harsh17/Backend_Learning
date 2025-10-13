@@ -1,30 +1,64 @@
 let express = require("express")
+const {checkToken} = require("./checkTokenMiddleware");
 
 let app = express()
 app.use(express.json())
 
 let myToken = "12345"
+let mypass = "12345"
 
-//Middleware
-let checkToken = (req,res,next)=>{
-    console.log(req.query.token)
-    if(req.query.token == ""){
-        return res.send(
-            {
-            status:0,
-            msg:"Please fill the token"
-            }
-        )
-    }
-    console.log("Welcome")
-    next();
-}
-app.use(checkToken)  // Middleware
+//Middleware 
+// We will use middleware mainly for authentication
+// Middleware is between req and res
+// let checkToken = (req,res,next)=>{
+//     console.log(req.query.token)
+//     if(req.query.token == "" || req.query.token == undefined){
+//         return res.send(
+//             {
+//             status:0,
+//             msg:"Please fill the token"
+//             }
+//         )
+//     }
+//     if(req.query.token != myToken){
+//         return res.send(
+//             {
+//                 status:0,
+//                 msg:"Please fill the correct token"
+//             }
+//         )
+//     }
+//     console.log("Welcome to Token Middleware")
+//     next();
+// }
+// app.use(checkToken)  // Middleware
+
+// // Another way to create middleware
+// app.use((req,res,next)=>{
+//     if(req.query.pass == "" || req.query.pass == undefined){
+//         return res.send(
+//             {
+//             status:0,
+//             msg:"Please enter the password"
+//             }
+//         )
+//     }
+//     if(req.query.pass != mypass){
+//         return res.send(
+//             {
+//                 status:0,
+//                 msg:"Please enter correct password"
+//             }
+//         )
+//     }
+//     console.log("Welcome to Password Middleware")
+//     next();
+// })
 
 app.get("/", (req,res) =>{ // http://localhost:3000
     res.send({status :1, msg: "Home Page API"})
 })
-app.get("/news", (req,res) =>{
+app.get("/news", checkToken, (req,res) =>{
     res.send({status :2, msg: "News Page API"})
 })
 app.get("/news/:id",(req,res)=>{
