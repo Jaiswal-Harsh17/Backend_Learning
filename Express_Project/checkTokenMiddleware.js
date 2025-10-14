@@ -1,3 +1,4 @@
+// Making middleware in separate file and exporting it to the other file
 let myToken = "12345"
 let mypass = "12345"
 let checkToken = (req,res,next)=>{
