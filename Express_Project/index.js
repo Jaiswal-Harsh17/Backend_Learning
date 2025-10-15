@@ -4,8 +4,8 @@ const {checkToken} = require("./checkTokenMiddleware");
 let app = express()
 app.use(express.json())
 
-let myToken = "12345"
-let mypass = "12345"
+let myToken = "123"
+let mypass = "123"
 
 //Middleware 
 // We will use middleware mainly for authentication
@@ -69,7 +69,7 @@ app.get("/news/:id",(req,res)=>{
 app.post("/login",(req,res)=>{
     console.log(req.body) 
     res.status(200).json({
-        status:1,
+        status:4,
         msg:"Login API",
         bodyData: req.body,
         queryData:req.query
