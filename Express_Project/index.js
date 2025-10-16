@@ -1,11 +1,12 @@
 let express = require("express")
 const {checkToken} = require("./checkTokenMiddleware");
-
+require("dotenv").config();
 let app = express()
 app.use(express.json())
 
-let myToken = "123"
-let mypass = "123"
+// let myToken = "123"
+// let mypass = "123"
+console.log(process.env.myToken)
 
 //Middleware 
 // We will use middleware mainly for authentication
